@@ -9,16 +9,35 @@ public class Paddle : KinematicBody2D
 
     [Export]
     float moveSpeed = 100;
-    Vector2 targetPosition;
+    float deceleration = 1000;
+
+    Vector2 motion = Vector2.Zero;
+    Vector2 lastInputDir = Vector2.Zero;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-       targetPosition = Position;
+
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(float delta)
     {
+
+        var inputDirection = GetInputDir();
+        
+        if(inputDirection.x == 0){
+            motion = motion.LinearInterpolate(Vector2.Zero, .1f);       
+        }
+        else{
+            lastInputDir = inputDirection;            
+            motion = (inputDirection.Normalized() * moveSpeed);
+        }
+
+
+        MoveAndCollide(motion * delta);
+    }
+
+    private Vector2 GetInputDir(){
         Vector2 inputDirection = new Vector2();
 
         if(Input.IsActionPressed("ui_right")){
@@ -28,11 +47,6 @@ public class Paddle : KinematicBody2D
         if(Input.IsActionPressed("ui_left")){
             inputDirection.x--;
         }
-
-        if(inputDirection.x == 0){
-            
-        }   
-        Vector2 velocity = (inputDirection.Normalized() * moveSpeed * delta);        
-        MoveAndCollide(velocity);
+        return inputDirection;
     }
 }
