@@ -1,0 +1,149 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://GameObjects/Brick.cs" type="Script" id=1]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-blue.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-darkgreen.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-brown.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-green.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-lightblue.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-purple.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-red.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-orange.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-yellow.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-orange-cracked.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-lightblue-cracked.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-yellow-cracked.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-grey-cracked.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-grey.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-darkgreen-cracked.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-brown-cracked.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-blue-cracked.png" type="Texture" id=18]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-purple-cracked.png" type="Texture" id=19]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-green-cracked.png" type="Texture" id=20]
+[ext_resource path="res://Assets/Brick Breaker Sprites/block-red-cracked.png" type="Texture" id=21]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": false,
+"name": "blue",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "darkgreen",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": false,
+"name": "brown",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "green",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "lightblue",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "purple",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "red",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "orange",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "yellow",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "orangecracked",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "lightbluecracked",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "yellowcracked",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "greycracked",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "grey",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "darkgreencracked",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ) ],
+"loop": false,
+"name": "browncracked",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 18 ) ],
+"loop": false,
+"name": "bluecracked",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 19 ) ],
+"loop": true,
+"name": "purplecracked",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ) ],
+"loop": true,
+"name": "greencracked",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 21 ) ],
+"loop": true,
+"name": "redcracked",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 47.9789, 15.9436 )
+
+[node name="Brick" type="RigidBody2D" groups=[
+"bricks",
+]]
+mode = 3
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.25, 0.25 )
+frames = SubResource( 1 )
+animation = "purple"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+[connection signal="body_entered" from="." to="." method="OnBrickBodyEntered"]
