@@ -3,18 +3,17 @@
 [ext_resource path="res://GameObjects/Paddle.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Brick Breaker Sprites/paddle.png" type="Texture" id=2]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 16.0
-height = 142.0
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 15.6954, 86.2418 )
 
 [node name="Paddle" type="KinematicBody2D"]
 script = ExtResource( 1 )
 moveSpeed = 500.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = 1.5708
-shape = SubResource( 1 )
-
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource( 1 )
