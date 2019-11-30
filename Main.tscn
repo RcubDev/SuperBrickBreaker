@@ -1,6 +1,69 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Main.cs" type="Script" id=1]
+[ext_resource path="res://GameObjects/Paddle.tscn" type="PackedScene" id=2]
+[ext_resource path="res://GameObjects/Ball.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/brick.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 966.289, 4.81882 )
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
+
+[node name="Paddle" parent="." instance=ExtResource( 2 )]
+position = Vector2( 865.669, 967.915 )
+
+[node name="Ball" parent="." instance=ExtResource( 3 )]
+position = Vector2( 852.989, 520.522 )
+linear_velocity = Vector2( 0, 0 )
+linear_damp = 0.0
+angular_damp = 0.0
+
+[node name="Wall" type="KinematicBody2D" parent="."]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Wall"]
+position = Vector2( 953.338, 0 )
+scale = Vector2( 60.5836, 1 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+position = Vector2( 951.524, -0.735092 )
+shape = SubResource( 1 )
+
+[node name="Wall2" type="KinematicBody2D" parent="."]
+editor/display_folded = true
+rotation = 1.5708
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Wall2"]
+position = Vector2( 953.338, 0 )
+scale = Vector2( 60.5836, 1 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
+position = Vector2( 951.524, -0.735092 )
+shape = SubResource( 1 )
+
+[node name="Wall3" type="KinematicBody2D" parent="."]
+editor/display_folded = true
+position = Vector2( 1919.94, 10.6147 )
+rotation = 1.5708
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Wall3"]
+position = Vector2( 953.338, 0 )
+scale = Vector2( 60.5836, 1 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall3"]
+position = Vector2( 951.524, -0.735092 )
+shape = SubResource( 1 )

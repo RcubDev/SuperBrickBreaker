@@ -3,19 +3,26 @@ using System;
 
 public class Main : Node
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
+    [Signal]
+    public delegate void GameStarted();
+    Paddle paddle;
+    Ball ball;
 
-    // Called when the node enters the scene tree for the first time.
+    bool gameOver = true;
     public override void _Ready()
     {
-
+        paddle = GetNode("Paddle") as Paddle;
+        ball = GetNode("Ball") as Ball;
     }
+    public override void _Process(float delta) {
+        if(Input.IsActionJustPressed("ui_restart")) {
+            GetTree().ReloadCurrentScene();
+        }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+        if (gameOver && Input.IsActionJustPressed("ui_start_game"))
+        {
+            gameOver = false;
+            EmitSignal(MainSignal.GameStarted.ToString());
+        }
+    }
 }
