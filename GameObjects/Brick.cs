@@ -23,7 +23,7 @@ public class Brick : RigidBody2D, IGroupEntity, IGameEntity
     [Export]
     bool randomizePowerUp = true;
     private BrickColor currentColor;
-    private GamePowerUp<IPowerUp> containedPowerUp;
+    private GamePowerUp containedPowerUp;
 
     public override void _Ready()
     {
@@ -94,11 +94,12 @@ public class Brick : RigidBody2D, IGroupEntity, IGameEntity
     private void SetBrickContainedPowerUp(PowerUp powerUpEnumerated)
     {
         GD.Print($"power up enumerated: {powerUpEnumerated.ToString()} on {this.Name}");
-        //Generic opportunity...
+        PackedScene loadedPowerUp;
         switch (powerUpEnumerated)
         {
             case PowerUp.MultiBall:
-                containedPowerUp = new GamePowerUp<MultiBallPowerUp>().GetInstance();
+                loadedPowerUp = ResourceLoader.Load("res://GameObjects/MultiBallPowerUp.tscn") as PackedScene;
+                containedPowerUp = loadedPowerUp.Instance() as MultiBallPowerUp;
                 break;
             case PowerUp.DoubleDamage:
                 loadedPowerUp = ResourceLoader.Load("res://GameObjects/MultiBallPowerUp.tscn") as PackedScene;

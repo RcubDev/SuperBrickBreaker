@@ -3,14 +3,13 @@ using Godot;
 using SuperBrickBreaker.GameObjects;
 using SuperBrickBreaker.GameObjects.Interfaces;
 
-public class MultiBallPowerUp : GamePowerUp<MultiBallPowerUp>, IGroupEntity, IGameEntity, IPowerUp<MultiBallPowerUp>
+public class MultiBallPowerUp : GamePowerUp, IGroupEntity, IGameEntity
 {
     [Export]
     public float moveSpeed = 100f;
 
     
     public override PowerUp Type { get; }
-    public override string ResourcePath {get { return "res://GameObjects/MultiBallPowerUp.tscn";} }
     public MultiBallPowerUp() {
         Type = PowerUp.MultiBall;
     }

@@ -1,8 +1,6 @@
-public interface IPowerUp<out T> {
+
+public interface IPowerUp {
     GameEnumerations.PowerUp Type {get;}
-    string ResourcePath {get;}
     void Apply();
     void Stop();
-    Godot.Resource GetPackedScene();
-    T GetInstance();
 }
