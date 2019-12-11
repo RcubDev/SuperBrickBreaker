@@ -24,17 +24,21 @@ public class Paddle : KinematicBody2D
     {
 
         var inputDirection = GetInputDir();
-        
-        if(inputDirection.x == 0){
-            motion = motion.LinearInterpolate(Vector2.Zero, .1f);       
+        if(!true){
+            if(inputDirection.x == 0){
+                motion = motion.LinearInterpolate(Vector2.Zero, .1f);       
+            }
+            else{
+                lastInputDir = inputDirection;            
+                motion = (inputDirection.Normalized() * moveSpeed);
+            }
+            MoveAndCollide(motion * delta);
+
         }
         else{
-            lastInputDir = inputDirection;            
-            motion = (inputDirection.Normalized() * moveSpeed);
+            Position = new Vector2(GetGlobalMousePosition().x, Position.y);
+
         }
-
-
-        MoveAndCollide(motion * delta);
     }
 
     private Vector2 GetInputDir(){

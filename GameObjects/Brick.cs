@@ -2,8 +2,10 @@ using Godot;
 using System;
 using GameEnumerations;
 using Helpers;
+using SuperBrickBreaker.GameObjects.Interfaces;
+using SuperBrickBreaker.GameObjects;
 
-public class Brick : RigidBody2D
+public class Brick : RigidBody2D, IGroupEntity, IGameEntity
 {
     // Declare member variables here. Examples:
     // private int a = 2;
@@ -16,30 +18,98 @@ public class Brick : RigidBody2D
 
     [Export]
     int startColor;
+    [Export]
+    int powerUp;
+    [Export]
+    bool randomizePowerUp = true;
     private BrickColor currentColor;
+    private GamePowerUp containedPowerUp;
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
-        if(startColor <= 0){
-            currentColor = colors[RandomHelper.GetRandomNumber(0, colors.Length)];
+
+        if (randomizePowerUp && RandomHelper.GetRandomNumber(1, 10) > 7)
+        {
+            SetBrickContainedPowerUp((PowerUp)RandomHelper.GetRandomNumber(1, 4));
         }
-        else{
-            currentColor = (BrickColor)startColor;
+        else if (!randomizePowerUp && powerUp != 0)
+        {
+            SetBrickContainedPowerUp((PowerUp)powerUp);
         }
 
+        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        if (startColor <= 0)
+        {
+            currentColor = colors[RandomHelper.GetRandomNumber(0, colors.Length)];
+        }
+        else
+        {
+            currentColor = (BrickColor)startColor;
+        }
+        AddNodeToGroup();
         sprite.Play(currentColor.ToString());
-        AddToGroup(GameEnumerations.Groups.bricks.ToString());
     }
 
     public void OnBrickBodyEntered(PhysicsBody2D body)
     {
-        if((int)currentColor % 2 == 1){
-            currentColor++;
-            sprite.Play(currentColor.ToString());
+        if (body is Ball)
+        {
+            if ((int)currentColor % 2 == 1)
+            {
+                currentColor++;
+                sprite.Play(currentColor.ToString());
+            }
+            else
+            {
+                Destroy();
+            }
         }
-        else {
-            QueueFree();
-        }        
+    }
+
+    public void AddNodeToGroup()
+    {
+        AddToGroup(GameEnumerations.Groups.Bricks.ToString());
+    }
+
+    public void Destroy()
+    {
+        CallDeferred("DropPowerUp");        
+        QueueFree();
+    }
+
+    private void DropPowerUp()
+    {
+        if (containedPowerUp != null)
+        {
+            containedPowerUp.Position = this.Position;
+            GetParent().AddChild(containedPowerUp);
+        }
+    }
+
+    public void RemoveNodeFromGroup()
+    {
+        RemoveFromGroup(GameEnumerations.Groups.Bricks.ToString());
+    }
+
+    private void SetBrickContainedPowerUp(PowerUp powerUpEnumerated)
+    {
+        GD.Print($"power up enumerated: {powerUpEnumerated.ToString()} on {this.Name}");
+        PackedScene loadedPowerUp;
+        switch (powerUpEnumerated)
+        {
+            case PowerUp.MultiBall:
+                loadedPowerUp = ResourceLoader.Load("res://GameObjects/MultiBallPowerUp.tscn") as PackedScene;
+                break;
+            case PowerUp.DoubleDamage:
+                loadedPowerUp = ResourceLoader.Load("res://GameObjects/MultiBallPowerUp.tscn") as PackedScene;
+                 break;
+            case PowerUp.FireBall:
+                loadedPowerUp = ResourceLoader.Load("res://GameObjects/MultiBallPowerUp.tscn") as PackedScene;
+                break;
+            default:
+                loadedPowerUp = ResourceLoader.Load("res://GameObjects/MultiBallPowerUp.tscn") as PackedScene;
+                break;
+        }
+        containedPowerUp = loadedPowerUp.Instance() as GamePowerUp;
     }
 }

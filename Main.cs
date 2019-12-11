@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using SuperBrickBreaker.GameObjects.Helpers;
+using GameEnumerations;
 
 public class Main : Node
 {
@@ -15,14 +17,27 @@ public class Main : Node
         ball = GetNode("Ball") as Ball;
     }
     public override void _Process(float delta) {
+        GD.Print($"{GetTree().GetNodesInGroup(Groups.Balls.ToString()).Count}");
         if(Input.IsActionJustPressed("ui_restart")) {
-            GetTree().ReloadCurrentScene();
+            ResetGame();
         }
 
         if (gameOver && Input.IsActionJustPressed("ui_start_game"))
         {
+            GameManagerHelper.GetGameManager(this).GameStarted = true;
             gameOver = false;
-            EmitSignal(MainSignal.GameStarted.ToString());
+            EmitSignal(MainSignal.GameStarted.ToString(), new object[] {null});
         }
+    }
+
+    private void ResetGame(){
+        GameManagerHelper.GetGameManager(this).GameStarted = false;
+        var balls = GetTree().GetNodesInGroup(Groups.Balls.ToString());
+        foreach(var ball in balls){
+            var castBall = ball as Ball;
+            castBall.Destroy();
+        }
+        GetTree().ReloadCurrentScene();
+
     }
 }
