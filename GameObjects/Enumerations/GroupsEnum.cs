@@ -1,6 +1,8 @@
 namespace GameEnumerations
 {
     public enum Groups {
-        bricks = 1
+        Bricks = 1,
+        Balls = 2,
+        PowerUps = 3
     }
 }
