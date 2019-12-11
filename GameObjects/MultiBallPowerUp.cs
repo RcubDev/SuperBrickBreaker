@@ -6,9 +6,7 @@ using SuperBrickBreaker.GameObjects.Interfaces;
 public class MultiBallPowerUp : GamePowerUp, IGroupEntity, IGameEntity
 {
     [Export]
-    public float moveSpeed = 100f;
-
-    
+    public float moveSpeed = 100f;    
     public override PowerUp Type { get; }
     public MultiBallPowerUp() {
         Type = PowerUp.MultiBall;

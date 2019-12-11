@@ -39,9 +39,6 @@ public class Paddle : KinematicBody2D
             Position = new Vector2(GetGlobalMousePosition().x, Position.y);
 
         }
-
-
-
     }
 
     private Vector2 GetInputDir(){

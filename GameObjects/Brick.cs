@@ -99,19 +99,17 @@ public class Brick : RigidBody2D, IGroupEntity, IGameEntity
         {
             case PowerUp.MultiBall:
                 loadedPowerUp = ResourceLoader.Load("res://GameObjects/MultiBallPowerUp.tscn") as PackedScene;
-                containedPowerUp = loadedPowerUp.Instance() as MultiBallPowerUp;
                 break;
             case PowerUp.DoubleDamage:
                 loadedPowerUp = ResourceLoader.Load("res://GameObjects/MultiBallPowerUp.tscn") as PackedScene;
-                containedPowerUp = loadedPowerUp.Instance() as MultiBallPowerUp; break;
+                 break;
             case PowerUp.FireBall:
                 loadedPowerUp = ResourceLoader.Load("res://GameObjects/MultiBallPowerUp.tscn") as PackedScene;
-                containedPowerUp = loadedPowerUp.Instance() as MultiBallPowerUp;
                 break;
             default:
                 loadedPowerUp = ResourceLoader.Load("res://GameObjects/MultiBallPowerUp.tscn") as PackedScene;
-                containedPowerUp = loadedPowerUp.Instance() as MultiBallPowerUp;
                 break;
         }
+        containedPowerUp = loadedPowerUp.Instance() as GamePowerUp;
     }
 }
