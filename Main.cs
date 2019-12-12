@@ -17,7 +17,6 @@ public class Main : Node
         ball = GetNode("Ball") as Ball;
     }
     public override void _Process(float delta) {
-        GD.Print($"{GetTree().GetNodesInGroup(Groups.Balls.ToString()).Count}");
         if(Input.IsActionJustPressed("ui_restart")) {
             ResetGame();
         }

@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Main.cs" type="Script" id=1]
 [ext_resource path="res://GameObjects/Paddle.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/brick.png" type="Texture" id=3]
 [ext_resource path="res://GameObjects/Brick.tscn" type="PackedScene" id=4]
 [ext_resource path="res://GameObjects/Ball.tscn" type="PackedScene" id=5]
+[ext_resource path="res://GameObjects/MultiBallPowerUp.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 966.289, 4.81882 )
@@ -62,6 +63,7 @@ position = Vector2( 951.524, -0.735092 )
 shape = SubResource( 1 )
 
 [node name="Bricks" type="Node" parent="."]
+editor/display_folded = true
 
 [node name="Brick124" parent="Bricks" instance=ExtResource( 4 )]
 position = Vector2( 1004.07, 430 )
@@ -366,3 +368,6 @@ position = Vector2( 1290, 460 )
 position = Vector2( 1290, 580 )
 
 [node name="Ball" parent="." instance=ExtResource( 5 )]
+
+[node name="MultiBallPowerUp" parent="." instance=ExtResource( 6 )]
+position = Vector2( 850, 780 )

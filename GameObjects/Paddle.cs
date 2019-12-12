@@ -1,7 +1,8 @@
 using Godot;
+using SuperBrickBreaker.GameObjects;
 using System;
 
-public class Paddle : KinematicBody2D
+public class Paddle : RigidBody2D
 {
     // Declare member variables here. Examples:
     // private int a = 2;
@@ -13,16 +14,17 @@ public class Paddle : KinematicBody2D
 
     Vector2 motion = Vector2.Zero;
     Vector2 lastInputDir = Vector2.Zero;
+    Area2D powerUpArea;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-
+        powerUpArea = GetNode<Area2D>("Area2D");
+        powerUpArea.Connect("area_entered", this, nameof(PowerUpAreaEntered));
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(float delta)
     {
-
         var inputDirection = GetInputDir();
         if(!true){
             if(inputDirection.x == 0){
@@ -31,13 +33,11 @@ public class Paddle : KinematicBody2D
             else{
                 lastInputDir = inputDirection;            
                 motion = (inputDirection.Normalized() * moveSpeed);
-            }
-            MoveAndCollide(motion * delta);
-
+            }            
+            Position = motion * delta;
         }
         else{
-            Position = new Vector2(GetGlobalMousePosition().x, Position.y);
-
+            Position = new Vector2(GetGlobalMousePosition().x, Position.y);            
         }
     }
 
@@ -52,5 +52,13 @@ public class Paddle : KinematicBody2D
             inputDirection.x--;
         }
         return inputDirection;
+    }
+    
+    public void PowerUpAreaEntered(Area2D node){
+        if(node is GamePowerUp){
+            var castedNode = (GamePowerUp)node;
+            castedNode.CallDeferred("Apply");
+            castedNode.Destroy();
+        }
     }
 }

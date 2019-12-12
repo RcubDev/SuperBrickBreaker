@@ -93,7 +93,6 @@ public class Brick : RigidBody2D, IGroupEntity, IGameEntity
 
     private void SetBrickContainedPowerUp(PowerUp powerUpEnumerated)
     {
-        GD.Print($"power up enumerated: {powerUpEnumerated.ToString()} on {this.Name}");
         PackedScene loadedPowerUp;
         switch (powerUpEnumerated)
         {

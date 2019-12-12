@@ -54,7 +54,6 @@ public class Ball : RigidBody2D, IGameEntity, IGroupEntity
     }
 
     public void OnVisibilityExited() {
-        GD.Print("Visibility Exited");
         this.Destroy();
     }
 

@@ -1,10 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://GameObjects/Paddle.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Brick Breaker Sprites/paddle.png" type="Texture" id=2]
 
-[node name="Paddle" type="KinematicBody2D"]
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 86.9471, 21.4216 )
+
+[node name="Paddle" type="RigidBody2D"]
 collision_mask = 3
+mode = 3
+contacts_reported = 1
+contact_monitor = true
 script = ExtResource( 1 )
 moveSpeed = 500.0
 
@@ -15,3 +21,8 @@ texture = ExtResource( 2 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( 0.681091, -11.9197 )
 polygon = PoolVector2Array( -86.3992, 28.3005, -86.7397, 1.0555, -55.408, -10.5236, -9.4321, -18.6971, 12.3639, -18.6971, 62.7671, -8.82082, 85.9254, 0.0338135, 85.5848, 27.6193 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
