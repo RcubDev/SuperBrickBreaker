@@ -25,9 +25,6 @@ public class Paddle : RigidBody2D
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(float delta)
     {
-        GD.Print(GetViewportRect().Size.x);
-        GD.Print(GetViewportRect().Size.y);
-        GD.Print(this.Position.x);
         var inputDirection = GetInputDir();
         if(!true){
             if(inputDirection.x == 0){
