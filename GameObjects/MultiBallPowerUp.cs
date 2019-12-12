@@ -55,15 +55,8 @@ public class MultiBallPowerUp : GamePowerUp, IGroupEntity, IGameEntity
         RemoveFromGroup(GameEnumerations.Groups.PowerUps.ToString());
     }
 
-    public void OnMultiBallPowerUpBodyEntered(PhysicsBody2D body){
-        if(body is Paddle){
-            Destroy();
-        }
-    }
-
-    public void Destroy()
+    public override void Destroy()
     {
-        CallDeferred("Apply");
         QueueFree();
     }
 }
